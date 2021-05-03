@@ -35,6 +35,9 @@ class KafkaConsumer:
             'group.id': topic_name_pattern,
         }
 
+        if self.offset_earliest is True:
+            self.broker_properties['default.topic.config'] = {'auto.offset.reset': 'earliest'}
+
         if is_avro is True:
             self.broker_properties["schema.registry.url"] = "http://localhost:8081"
             self.consumer = AvroConsumer(self.broker_properties)
